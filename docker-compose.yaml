@@ -1,0 +1,16 @@
+services:
+  express-app:
+    image: jukaveyo/dopsker-deployment:latest
+    container_name: express-app
+    ports:
+      - 8080:8080
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+  watchtower:
+    image: nickfedor/watchtower
+    environment:
+      - WATCHTOWER_POLL_INTERVAL=60
+      - WATCHTOWER_LABEL_ENABLE=true
+    volumes:
+      - /run/user/1368846/docker.sock:/var/run/docker.sock
+    container_name: watchtower
